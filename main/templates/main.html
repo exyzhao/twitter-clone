@@ -9,5 +9,6 @@ title
 {% endblock %}
 
 {% block body %}
-<h1>hello!</h1>
+<h1>Hello, {{ user.username }}!</h1>
+<a href="/logout"><button>Logout</button></a>
 {% endblock %}
