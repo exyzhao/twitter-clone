@@ -1,9 +1,23 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
+from main.models import Tweet
+from datetime import datetime
 
 def main_view(request):
-    return render(request, 'main.html' )
+    if not request.user.is_authenticated:
+        return render(request, 'splash.html')
+
+    if request.method == 'POST' and request.POST['body'] != "":
+        tweet = Tweet.objects.create(
+            body = request.POST['body'],
+            author = request.user,
+            created_at = datetime.now()
+        )
+        tweet.save()
+
+    tweets = Tweet.objects.all().order_by('-created_at')
+    return render(request, 'main.html', {'tweets': tweets})
 
 def splash_view(request):
     return render(request, 'splash.html' )
