@@ -19,6 +19,12 @@ def main_view(request):
     tweets = Tweet.objects.all().order_by('-created_at')
     return render(request, 'main.html', {'tweets': tweets})
 
+def delete_view(request):
+    tweet = Tweet.objects.get(id=request.GET['id'])
+    if tweet.author == request.user:
+        tweet.delete()
+    return redirect('/')
+
 def splash_view(request):
     return render(request, 'splash.html' )
 
