@@ -25,6 +25,17 @@ def delete_view(request):
         tweet.delete()
     return redirect('/')
 
+def like_tweet(request):
+    tweet = Tweet.objects.get(id=request.GET['id'])
+
+    if len(tweet.likes.filter(username=request.user.username)) == 0:
+        tweet.likes.add(request.user)
+    else:
+        tweet.likes.remove(request.user)
+
+    tweet.save()
+    return redirect('/')
+
 def splash_view(request):
     return render(request, 'splash.html' )
 

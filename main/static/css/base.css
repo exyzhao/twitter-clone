@@ -1,3 +1,11 @@
 * {
     font-family: 'Avenir', 'Roboto', sans-serif;
 }
+
+#wrapper {
+    margin: auto;
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
